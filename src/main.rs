@@ -49,8 +49,8 @@ fn main() {
     println!("{g1_state}\n");
     swp_state.tick();
     g1_state.tick();
-    // println!("{swp_state}\n");
-    // println!("{g1_state}\n");
+    println!("{swp_state}\n");
+    println!("{g1_state}\n");
 
     // for _ in 0..10 {
     //     println!("{}\n", state);

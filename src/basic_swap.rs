@@ -95,13 +95,13 @@ impl State {
             acc += self.current[row - 1][col - 1] as u8 * 1;
         }
         if row < max_row {
-            acc += self.current[row + 1][col] as u8 * 11
+            acc += self.current[row + 1][col] as u8 * 1
         }
         if col < max_col {
-            acc += self.current[row][col + 1] as u8 * 11
+            acc += self.current[row][col + 1] as u8 * 1
         }
         if row < max_row && col < max_col {
-            acc += self.current[row + 1][col + 1] as u8 * 11
+            acc += self.current[row + 1][col + 1] as u8 * 1
         }
         acc
     }
