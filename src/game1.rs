@@ -1,6 +1,8 @@
 use core::fmt;
 
-#[derive(Debug)]
+use crate::Game;
+
+#[derive(Debug, Clone)]
 pub struct State {
     pub width: usize,
     pub height: usize,
@@ -38,8 +40,18 @@ impl From<String> for State {
     }
 }
 
-impl State {
-    pub fn tick(&mut self) -> &mut Self {
+impl From<Vec<Vec<bool>>> for State {
+    fn from(value: Vec<Vec<bool>>) -> Self {
+        State {
+            width: value.get(0).unwrap().len(),
+            height: value.len(),
+            board: value,
+        }
+    }
+}
+
+impl Game for State {
+    fn tick(&mut self) -> &mut Self {
         let mut adjs: Vec<Vec<u8>> = vec![vec![0; self.width]; self.height];
 
         for (i, row) in self.board.iter().enumerate() {
@@ -61,10 +73,12 @@ impl State {
             }
         }
 
-        println!("{:#?}", adjs);
+        // println!("{:#?}", adjs);
 
         self
     }
+}
+impl State {
     fn add_adjs(&self, acc: &mut Vec<Vec<u8>>, row: usize, col: usize) {
         let max_row = self.height - 1;
         let max_col = self.width - 1;

@@ -1,7 +1,8 @@
-use lifers::game1::State;
+use lifers::game1;
+use lifers::Game;
 
 fn main() {
-    let mut state = State {
+    let mut state = game1::State {
         width: 3,
         height: 3,
         board: vec![
@@ -37,7 +38,7 @@ fn main() {
 
     // println!("{:?}", glider);
 
-    let mut state: State = glider.to_string().into();
+    let mut state: game1::State = glider.to_string().into();
 
     // for _ in 0..50 {
     //     println!("{}\n", state);
