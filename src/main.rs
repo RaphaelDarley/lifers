@@ -1,3 +1,4 @@
+use lifers::basic_swap;
 use lifers::game1;
 use lifers::Game;
 
@@ -38,13 +39,24 @@ fn main() {
 
     // println!("{:?}", glider);
 
-    let mut state: game1::State = glider.to_string().into();
+    let mut g1_state: game1::State = glider.to_string().into();
+    let mut swp_state: basic_swap::State = glider.to_string().into();
 
-    // for _ in 0..50 {
+    println!("{:?}", swp_state.current);
+    println!("{:?}", g1_state.board);
+
+    println!("{swp_state}\n");
+    println!("{g1_state}\n");
+    swp_state.tick();
+    g1_state.tick();
+    // println!("{swp_state}\n");
+    // println!("{g1_state}\n");
+
+    // for _ in 0..10 {
     //     println!("{}\n", state);
     //     state.tick();
     // }
-    println!("{}\n", state);
-    state.tick();
-    println!("{}\n", state);
+    // println!("{}\n", state);
+    // state.tick();
+    // println!("{}\n", state);
 }

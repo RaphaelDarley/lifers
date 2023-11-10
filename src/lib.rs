@@ -1,5 +1,6 @@
 use std::fmt::Display;
 
+pub mod basic_swap;
 pub mod game1;
 
 // Any live cell with two or three live neighbours survives.
