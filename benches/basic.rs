@@ -1,7 +1,7 @@
 use std::iter::repeat_with;
 
 use criterion::{black_box, criterion_group, criterion_main, BenchmarkId, Criterion};
-use lifers::{game1, Game};
+use lifers::{basic_swap, game1, Game};
 use rand::Rng;
 
 fn nticks(game: &impl Game, n: usize) {
@@ -26,7 +26,12 @@ fn bench_games(c: &mut Criterion) {
 
         group.bench_with_input(
             BenchmarkId::new("game1", "blinker"),
-            &game1::State::from(small),
+            &game1::State::from(small.clone()),
+            |b, g| b.iter(|| nticks(g, 100)),
+        );
+        group.bench_with_input(
+            BenchmarkId::new("basic_swap", "blinker"),
+            &basic_swap::State::from(small.clone()),
             |b, g| b.iter(|| nticks(g, 100)),
         );
         group.finish();
@@ -43,11 +48,27 @@ fn bench_games(c: &mut Criterion) {
         .collect::<Vec<Vec<bool>>>();
 
         let mut group = c.benchmark_group("large");
+        group.sample_size(10);
 
         group.bench_with_input(
-            BenchmarkId::new("game1", "large random"),
-            &game1::State::from(large),
+            BenchmarkId::new("game1", "large random, 10 ticks"),
+            &game1::State::from(large.clone()),
             |b, g| b.iter(|| nticks(g, 10)),
+        );
+        group.bench_with_input(
+            BenchmarkId::new("game1", "large random, 100 ticks"),
+            &game1::State::from(large.clone()),
+            |b, g| b.iter(|| nticks(g, 100)),
+        );
+        group.bench_with_input(
+            BenchmarkId::new("basic_swap", "large random, 10 ticks"),
+            &basic_swap::State::from(large.clone()),
+            |b, g| b.iter(|| nticks(g, 10)),
+        );
+        group.bench_with_input(
+            BenchmarkId::new("basic_swap", "large random, 100 ticks"),
+            &basic_swap::State::from(large.clone()),
+            |b, g| b.iter(|| nticks(g, 100)),
         );
         group.finish();
     }
